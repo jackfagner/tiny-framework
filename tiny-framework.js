@@ -26,11 +26,16 @@ String.prototype.htmlDecode = function () {
 };
 
 //Element actions on array
-Array.prototype.attr = function (name, value) { if (this.length > 0) { this[0].attr(name, value); }; return this; };
-Array.prototype.val = function (value) { if (this.length > 0) { this[0].val(value); }; return this; };
-Array.prototype.html = function (value) { if (this.length > 0) { this[0].html(value); }; return this; };
-Array.prototype.append = function (value) { if (this.length > 0) { this[0].append(value); }; return this; };
+Array.prototype.attr = function (name, value) { 
+    if (typeof value === "undefined")
+        return this.length > 0 ? this[0].getAttribute(name) : null;
+    this.forEach(function (e,i) { e.attr(name, value); });
+    return this;
+};
+//Array.prototype.val = function (value) { if (this.length > 0) { this[0].val(value); }; return this; };
+//Array.prototype.html = function (value) { if (this.length > 0) { this[0].html(value); }; return this; };
+//Array.prototype.append = function (value) { if (this.length > 0) { this[0].append(value); }; return this; };
 Array.prototype.on = function (type, listener) { if (this.length > 0) { this[0].on(type, listener); }; return this; };
 Array.prototype.off = function (type, listener) { if (this.length > 0) { this[0].off(type, listener); }; return this; };
-Array.prototype.is = function (selector) { if (this.length > 0) { this[0].is(selector); }; return this; };
-Array.prototype.closest = function (selector) { if (this.length > 0) { this[0].closest(selector); }; return this; };
+Array.prototype.is = function (selector) { if (this.length > 0) { return this[0].is(selector); }; return false; };
+Array.prototype.closest = function (selector) { if (this.length > 0) { return this[0].closest(selector); }; return null; };
