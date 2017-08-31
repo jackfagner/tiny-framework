@@ -3,11 +3,10 @@
 var $ = function (id) { return Array.prototype.slice.call(document.querySelectorAll(id)); };
 
 Window.prototype.on = function (type, listener) { return this.addEventListener(type, listener, false); };
-if (typeof EventTarget === "undefined") //Chromium
-    Document.prototype.on = Element.prototype.on = Window.prototype.on;
-else
-    EventTarget.prototype.on = Window.prototype.on;
-    
+(typeof EventTarget === "undefined") ? (Document.prototype.on = Element.prototype.on = Window.prototype.on) : (EventTarget.prototype.on = Window.prototype.on);
+Window.prototype.off = function (type, listener) { return this.removeEventListener(type, listener, false); };
+(typeof EventTarget === "undefined") ? (Document.prototype.off = Element.prototype.off = Window.prototype.off) : (EventTarget.prototype.off = Window.prototype.off);
+
 Element.prototype.attr = function (name, value) { return (typeof value === "undefined" ? this.getAttribute(name) : this.setAttribute(name, value)); };
 Element.prototype.html = function (value) { return (typeof value === "undefined" ? this.innerHTML : this.innerHTML = value); };
 Element.prototype.append = function (value) { this.innerHTML = this.innerHTML += value; };
@@ -25,3 +24,13 @@ String.prototype.htmlDecode = function () {
     var map = { "&amp;": "&", "&quot;": "\"", "&#39;": "'", "&lt;": "<", "&gt;": ">" };
     return this.replace(/&amp;|&quot;|&#39;|&lt;|&gt;/g, function (m) { return map[m]; });
 };
+
+//Element actions on array
+Array.prototype.attr = function (name, value) { if (this.length > 0) { this[0].attr(name, value); }; return this; };
+Array.prototype.val = function (value) { if (this.length > 0) { this[0].val(value); }; return this; };
+Array.prototype.html = function (value) { if (this.length > 0) { this[0].html(value); }; return this; };
+Array.prototype.append = function (value) { if (this.length > 0) { this[0].append(value); }; return this; };
+Array.prototype.on = function (type, listener) { if (this.length > 0) { this[0].on(type, listener); }; return this; };
+Array.prototype.off = function (type, listener) { if (this.length > 0) { this[0].off(type, listener); }; return this; };
+Array.prototype.is = function (selector) { if (this.length > 0) { this[0].is(selector); }; return this; };
+Array.prototype.closest = function (selector) { if (this.length > 0) { this[0].closest(selector); }; return this; };
