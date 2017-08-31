@@ -70,6 +70,14 @@ Array.prototype.off = function (type, listener) {
     this.forEach(function (e,i) { e.off(type, listener); });
     return this;
 };
+Array.prototype.findNative = Array.prototype.find;
+Array.prototype.find = function (selector) {
+    if (typeof selector === "function")
+        return this.findNative(selector);
+    var result = [ ];
+    this.forEach(function (e,i) { Array.prototype.push.apply(result, e.find(selector)); });
+    return result;
+};
 //Array.prototype.on = function (type, listener) { if (this.length > 0) { this[0].on(type, listener); }; return this; };
 //Array.prototype.off = function (type, listener) { if (this.length > 0) { this[0].off(type, listener); }; return this; };
 Array.prototype.is = function (selector) { if (this.length > 0) { return this[0].is(selector); }; return false; };
