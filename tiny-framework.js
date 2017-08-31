@@ -7,11 +7,7 @@ Window.prototype.on = function (type, listener) { return this.addEventListener(t
 Window.prototype.off = function (type, listener) { return this.removeEventListener(type, listener, false); };
 (typeof EventTarget === "undefined") ? (Document.prototype.off = Element.prototype.off = Window.prototype.off) : (EventTarget.prototype.off = Window.prototype.off);
 
-//Element.prototype.attr = function (name, value) { return (typeof value === "undefined" ? this.getAttribute(name) : this.setAttribute(name, value)); };
-//Element.prototype.html = function (value) { return (typeof value === "undefined" ? this.innerHTML : this.innerHTML = value); };
-//Element.prototype.append = function (value) { this.innerHTML = this.innerHTML += value; };
 //Element.prototype.closest
-//Element.prototype.val = function (value) { return (typeof value === "undefined" ? this.value : this.value = value); };
 Element.prototype.is = Element.prototype.matches || Element.prototype.webkitMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector;
 Array.prototype.each = Array.prototype.forEach;
 Array.prototype.first = function () { return (this.length === 0 ? null : this[0]); };
@@ -78,7 +74,5 @@ Array.prototype.find = function (selector) {
     this.forEach(function (e,i) { Array.prototype.push.apply(result, e.find(selector)); });
     return result;
 };
-//Array.prototype.on = function (type, listener) { if (this.length > 0) { this[0].on(type, listener); }; return this; };
-//Array.prototype.off = function (type, listener) { if (this.length > 0) { this[0].off(type, listener); }; return this; };
 Array.prototype.is = function (selector) { if (this.length > 0) { return this[0].is(selector); }; return false; };
 Array.prototype.closest = function (selector) { if (this.length > 0) { return this[0].closest(selector); }; return null; };
