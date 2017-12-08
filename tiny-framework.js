@@ -13,11 +13,11 @@ Array.prototype.each = Array.prototype.forEach;
 Array.prototype.first = function () { return (this.length === 0 ? null : this[0]); };
 Array.prototype.last = function () { return (this.length === 0 ? null : this[this.length - 1]); };
 Element.prototype.find = function (id) { return Array.from(this.querySelectorAll(id)); };
-if (!Element.prototype.closest) //IE fix
-    Element.prototype.closest = function (s) { 
-        var e = this; 
+if (!Element.prototype.closest) { //IE fix
+    Element.prototype.closest = function (s) { var e = this; 
         while (e.parentElement && !e.parentElement.is(s)) e = e.parentElement; 
         return e.parentElement; }
+}
 
 
 Element.prototype.attr = function (name, value) { return [ this ].attr(name, value); };
@@ -80,5 +80,11 @@ Array.prototype.find = function (selector) {
     this.forEach(function (e,i) { Array.prototype.push.apply(result, e.find(selector)); });
     return result;
 };
+//Array.prototype.closest = function (selector) { if (this.length > 0) { return this[0].closest(selector); }; return null; };
+Array.prototype.closest = function (selector) { 
+    var result = [ ];
+    this.forEach(function (e,i) { Array.prototype.push.apply(result, e.closest(selector)); });
+    return result;
+};
 Array.prototype.is = function (selector) { if (this.length > 0) { return this[0].is(selector); }; return false; };
-Array.prototype.closest = function (selector) { if (this.length > 0) { return this[0].closest(selector); }; return null; };
+
