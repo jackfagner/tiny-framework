@@ -1,6 +1,7 @@
 /* MIT License */
 
-var $ = function (id) { return Array.prototype.slice.call(document.querySelectorAll(id)); };
+if (!Array.from) Array.from = function (n) { return Array.prototype.slice.call(n); };
+var $ = function (id) { return Array.from(document.querySelectorAll(id)); };
 
 Window.prototype.on = function (type, listener) { return this.addEventListener(type, listener, false); };
 (typeof EventTarget === "undefined") ? (Document.prototype.on = Element.prototype.on = Window.prototype.on) : (EventTarget.prototype.on = Window.prototype.on);
@@ -12,7 +13,7 @@ Element.prototype.is = Element.prototype.matches || Element.prototype.webkitMatc
 Array.prototype.each = Array.prototype.forEach;
 Array.prototype.first = function () { return (this.length === 0 ? null : this[0]); };
 Array.prototype.last = function () { return (this.length === 0 ? null : this[this.length - 1]); };
-Element.prototype.find = function (id) { return Array.prototype.slice.call(this.querySelectorAll(id)); };
+Element.prototype.find = function (id) { return Array.from(this.querySelectorAll(id)); };
 
 Element.prototype.attr = function (name, value) { return [ this ].attr(name, value); };
 Element.prototype.val = function (value) { return [ this ].val(value); };
