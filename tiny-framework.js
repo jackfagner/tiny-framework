@@ -83,7 +83,7 @@ Array.prototype.find = function (selector) {
 //Array.prototype.closest = function (selector) { if (this.length > 0) { return this[0].closest(selector); }; return null; };
 Array.prototype.closest = function (selector) { 
     var result = [ ];
-    this.forEach(function (e,i) { Array.prototype.push.apply(result, e.closest(selector)); });
+    this.forEach(function (e,i) { result.push(e.closest(selector)); }); //Check for null?
     return result;
 };
 Array.prototype.is = function (selector) { if (this.length > 0) { return this[0].is(selector); }; return false; };
