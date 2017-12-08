@@ -8,12 +8,17 @@ Window.prototype.on = function (type, listener) { return this.addEventListener(t
 Window.prototype.off = function (type, listener) { return this.removeEventListener(type, listener, false); };
 (typeof EventTarget === "undefined") ? (Document.prototype.off = Element.prototype.off = Window.prototype.off) : (EventTarget.prototype.off = Window.prototype.off);
 
-//Element.prototype.closest
 Element.prototype.is = Element.prototype.matches || Element.prototype.webkitMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector;
 Array.prototype.each = Array.prototype.forEach;
 Array.prototype.first = function () { return (this.length === 0 ? null : this[0]); };
 Array.prototype.last = function () { return (this.length === 0 ? null : this[this.length - 1]); };
 Element.prototype.find = function (id) { return Array.from(this.querySelectorAll(id)); };
+if (!Element.prototype.closest) //IE fix
+    Element.prototype.closest = function (s) { 
+        var e = this; 
+        while (e.parentElement && !e.parentElement.is(s)) e = e.parentElement; 
+        return e.parentElement; }
+
 
 Element.prototype.attr = function (name, value) { return [ this ].attr(name, value); };
 Element.prototype.val = function (value) { return [ this ].val(value); };
