@@ -1,4 +1,4 @@
 # tiny-framework
 
 Test page
-https://rawgit.com/jackfagner/tiny-framework/master/test.html
+https://jackfagner.github.io/tiny-framework/test.html
