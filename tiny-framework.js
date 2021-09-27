@@ -25,6 +25,9 @@ Element.prototype.val = function (value) { return [ this ].val(value); };
 Element.prototype.append = function (html) { return [ this ].append(html); };
 Element.prototype.html = function (value) { return [ this ].html(value); };
 Element.prototype.text = function (value) { return [ this ].text(value); };
+Element.prototype.hasClass = function (className) { return [ this ].hasClass(className); };
+Element.prototype.addClass = function (className) { return [ this ].addClass(className); };
+Element.prototype.removeClass = function (className) { return [ this ].removeClass(className); };
 
 String.prototype.htmlEncode = function () {
     var map = { "&": "&amp;", "\"": "&quot;", "'": "&#39;", "<": "&lt;", ">": "&gt;" };
@@ -88,3 +91,15 @@ Array.prototype.closest = function (selector) {
 };
 Array.prototype.is = function (selector) { if (this.length > 0) { return this[0].is(selector); }; return false; };
 
+Array.prototype.hasClass = function (className) {
+    this.forEach(function (e,i) { if (e.classList.contains(className)) return true; });
+    return false;
+};
+Array.prototype.addClass = function (className) {
+    this.forEach(function (e,i) { e.classList.contains(className) || e.classList.add(className); });
+    return this;
+};
+Array.prototype.removeClass = function (className) {
+    this.forEach(function (e,i) { e.classList.contains(className) && e.classList.remove(className); });
+    return this;
+};
