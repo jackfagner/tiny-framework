@@ -92,8 +92,7 @@ Array.prototype.closest = function (selector) {
 Array.prototype.is = function (selector) { if (this.length > 0) { return this[0].is(selector); }; return false; };
 
 Array.prototype.hasClass = function (className) {
-    this.forEach(function (e,i) { if (e.classList.contains(className)) return true; });
-    return false;
+    return this.some(function (e,i) { return e.classList.contains(className); });
 };
 Array.prototype.addClass = function (className) {
     this.forEach(function (e,i) { e.classList.contains(className) || e.classList.add(className); });
